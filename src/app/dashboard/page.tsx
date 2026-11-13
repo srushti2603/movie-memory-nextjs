@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
+  // Dashboard data is private, so signed-out users are redirected away before any database lookup.
   if (!session?.user?.id) {
     redirect("/");
   }
@@ -31,6 +32,7 @@ export default async function DashboardPage() {
     redirect("/");
   }
 
+  // Users who have not saved a movie yet should complete onboarding before seeing personalized content.
   if (!user.favoriteMovie) {
     redirect("/onboarding");
   }
@@ -51,6 +53,7 @@ export default async function DashboardPage() {
                 className="h-14 w-14 rounded-full object-cover"
               />
             ) : (
+              // Google profile values are optional; this keeps the layout usable when a user has no avatar or display name.
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-200 text-lg font-semibold text-slate-700">
                 {user.name?.charAt(0)?.toUpperCase() ?? "U"}
               </div>

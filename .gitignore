@@ -12,17 +12,28 @@
 
 # testing
 /coverage
+/.vitest/
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
 /out/
+/.turbo/
 
 # production
 /build
+/dist
+
+# caches
+/.cache/
+/.vite/
+/.pnpm-store/
 
 # misc
 .DS_Store
 *.pem
+postgres-data/
 
 # debug
 npm-debug.log*

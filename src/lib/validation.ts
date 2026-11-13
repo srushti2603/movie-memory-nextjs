@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// Normalizing the value before persistence keeps movie names consistent and rejects empty or oversized submissions early.
 export const favoriteMovieSchema = z.object({
   movie: z
     .string()

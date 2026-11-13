@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function OnboardingPage() {
   const session = await getServerSession(authOptions);
 
+  // This page is only for signed-in users who still need to choose a favorite movie.
   if (!session?.user?.id) {
     redirect("/");
   }
@@ -19,6 +20,7 @@ export default async function OnboardingPage() {
     select: { favoriteMovie: true },
   });
 
+  // Users already on-boarded should not be forced back through the setup flow.
   if (user?.favoriteMovie) {
     redirect("/dashboard");
   }

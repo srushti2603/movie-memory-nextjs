@@ -13,6 +13,7 @@ model User {
   emailVerified            DateTime?
   image                    String?
   favoriteMovie            String?
+  // This flag serializes concurrent generation requests per user so a refresh cannot create duplicate facts.
   factGenerationInProgress Boolean     @default(false)
   createdAt                DateTime    @default(now())
   updatedAt                DateTime    @updatedAt
@@ -63,5 +64,6 @@ model MovieFact {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  // The compound index matches the app's lookup pattern: newest fact for one user and movie, ordered by recency.
   @@index([userId, movieTitle, createdAt])
 }
